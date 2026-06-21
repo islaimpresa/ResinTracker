@@ -144,6 +144,21 @@
   .edit-grid input,.edit-grid select{width:100%;background:var(--field);border:1px solid var(--line);
     color:var(--ink);border-radius:7px;padding:7px 8px;font-size:.9rem}
   .edit-actions{display:flex;gap:6px;margin-top:10px}
+  /* tool navigation */
+  .toolnav{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px;
+    padding:10px 0 12px;border-bottom:1px solid var(--line);font-size:.9rem}
+  .toolnav a{color:var(--accent);text-decoration:none;font-weight:500;transition:.15s;
+    padding:4px 0;border-bottom:2px solid transparent}
+  .toolnav a:hover{border-bottom-color:var(--accent)}
+  .toolnav .sep{color:var(--line);user-select:none}
+  /* mobile nav compact */
+  @media (max-width:480px){
+    .toolnav{gap:6px;padding:8px 0 10px}
+    .toolnav a{font-size:.8rem;padding:3px 0}
+    .toolnav .sep{margin:0 3px}
+  }
+  /* input validation */
+  input[type="number"]:invalid{background-color:rgba(255,100,100,.05);border-color:var(--line)}
 </style>
 </head>
 
@@ -159,6 +174,15 @@
       <button class="lang-btn" id="langES" onclick="setLang('es')">ES</button>
       <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
     </div>
+  </div>
+  <div class="toolnav">
+    <a href="https://islaimpresa.github.io/" target="_blank" rel="noopener">← Isla Impresa</a>
+    <span class="sep">•</span>
+    <a href="https://islaimpresa.github.io/FDMCalculator/" target="_blank" rel="noopener">FDM Calculator</a>
+    <span class="sep">•</span>
+    <a href="https://islaimpresa.github.io/SLACalculator/" target="_blank" rel="noopener">Resin Calculator</a>
+    <span class="sep">•</span>
+    <a href="https://islaimpresa.github.io/FilamentTracker/" target="_blank" rel="noopener">Filament Tracker</a>
   </div>
   <p class="sub"><b id="slogan">Technical Mastery. Creative Design. Made in Puerto Rico.</b><br><span id="subtext">Track your resin bottles, remaining volume, value, and shelf-life.</span></p>
 
@@ -177,8 +201,8 @@
       </div>
       <div class="field"><label id="lblColor">Color</label><input id="f_color" type="text" placeholder="Grey, Clear..."></div>
       <div class="field"><label id="lblColorHex">Swatch</label><input id="f_hex" type="color" value="#249aa8" style="height:40px;padding:4px"></div>
-      <div class="field"><label id="lblTotal">Total volume (mL)</label><input id="f_total" type="number" step="1" min="0" value="1000"></div>
-      <div class="field"><label id="lblRemain">Remaining (mL)</label><input id="f_remain" type="number" step="1" min="0" value="1000"></div>
+      <div class="field"><label id="lblTotal">Total volume (mL)</label><input id="f_total" type="number" step="1" min="0" value="1000" title="Bottle volume when new"></div>
+      <div class="field"><label id="lblRemain">Remaining (mL)</label><input id="f_remain" type="number" step="1" min="0" value="1000" title="Approximate volume left in bottle"></div>
       <div class="presets" id="presets" style="grid-column:1/-1;margin-top:-2px">
         <span class="preset-label" id="presetLabel">Quick fill:</span>
         <span class="preset" onclick="setVol(250)">250 mL</span>
@@ -192,7 +216,7 @@
       </div>
       <div class="field"><label id="lblCurrency">Currency</label><select id="currency" onchange="onCurrencyChange()"></select></div>
       <div class="field"><label id="lblOpened">Opened date</label><input id="f_opened" type="date"></div>
-      <div class="field"><label id="lblShelf">Best used within (months)</label><input id="f_shelf" type="number" step="1" min="0" value="12"></div>
+      <div class="field"><label id="lblShelf">Best used within (months)</label><input id="f_shelf" type="number" step="1" min="0" value="12" title="How long the resin is good for after opening (for shelf-life alerts)"></div>
       <div class="field" style="grid-column:1/-1"><label id="lblNote">Note (optional)</label><input id="f_note" type="text" placeholder="Shake well, mixed brands..."></div>
     </div>
     <button class="calc" onclick="addBottle()" id="btnAdd" style="margin-top:12px">+ Add bottle</button>
