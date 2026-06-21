@@ -2,6 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgNjQgNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPCEtLSBCYWNrZ3JvdW5kIC0tPgogIDxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iIzI0OWFhOCIgcng9IjgiLz4KICAKICA8IS0tIDNEIFByaW50ZXIvQ3ViZSBzaWxob3VldHRlIC0tPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMyLCAzMikiPgogICAgPCEtLSBDdWJlIHNoYXBlIChpc29tZXRyaWMgM0QgcHJpbnQpIC0tPgogICAgPHBhdGggZD0iTSAtMTAgLTUgTCAwIC0xMiBMIDEwIC01IEwgMCAyIFoiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOSIvPgogICAgPHBhdGggZD0iTSAwIDIgTCAxMCAtNSBMIDEwIDggTCAwIDE1IFoiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuNyIvPgogICAgPHBhdGggZD0iTSAwIDIgTCAtMTAgLTUgTCAtMTAgOCBMIDAgMTUgWiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44Ii8+CiAgPC9nPgo8L3N2Zz4K" type="image/svg+xml">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Resin Bottle Inventory Tracker — Isla Impresa</title>
 <meta name="description" content="Free resin inventory tracker by Isla Impresa. Track remaining resin (mL), cost per mL, inventory value, low-stock alerts, and shelf-life for opened bottles. English/Spanish, 10 currencies. Made in Ponce, Puerto Rico.">
@@ -80,6 +81,12 @@
   .social a{color:var(--accent);text-decoration:none;font-weight:600;font-size:.9rem;
     border:1px solid var(--line);padding:7px 16px;border-radius:999px;transition:.15s}
   .social a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .search-group{display:flex;align-items:center;position:relative;margin-bottom:15px}
+  .search{flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font-size:.95rem}
+  .search:focus{outline:none;border-color:var(--accent);background:var(--panel-2)}
+  .search-clear{position:absolute;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:0;width:24px;height:24px;display:none;align-items:center;justify-content:center;transition:.15s}
+  .search-clear:hover{color:var(--accent)}
+  .form.empty{border:2px dashed var(--accent);background:rgba(36,154,168,0.04);padding:16px;border-radius:12px}
 </style><style>
   .lang-btn{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
     border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;margin-left:8px;}
@@ -87,6 +94,12 @@
   .topbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:4px;}
   .cta{margin-top:14px;text-align:center;font-size:14px;}
   .cta a{color:var(--accent);font-weight:600;text-decoration:none;}
+  .search-group{display:flex;align-items:center;position:relative;margin-bottom:15px}
+  .search{flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font-size:.95rem}
+  .search:focus{outline:none;border-color:var(--accent);background:var(--panel-2)}
+  .search-clear{position:absolute;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:0;width:24px;height:24px;display:none;align-items:center;justify-content:center;transition:.15s}
+  .search-clear:hover{color:var(--accent)}
+  .form.empty{border:2px dashed var(--accent);background:rgba(36,154,168,0.04);padding:16px;border-radius:12px}
 </style><style>
   .summary{display:flex;gap:12px;flex-wrap:wrap;margin:4px 0 18px}
   .stat{flex:1;min-width:110px;background:var(--panel);border:1px solid var(--line);
@@ -159,6 +172,12 @@
   }
   /* input validation */
   input[type="number"]:invalid{background-color:rgba(255,100,100,.05);border-color:var(--line)}
+  .search-group{display:flex;align-items:center;position:relative;margin-bottom:15px}
+  .search{flex:1;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font-size:.95rem}
+  .search:focus{outline:none;border-color:var(--accent);background:var(--panel-2)}
+  .search-clear{position:absolute;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;padding:0;width:24px;height:24px;display:none;align-items:center;justify-content:center;transition:.15s}
+  .search-clear:hover{color:var(--accent)}
+  .form.empty{border:2px dashed var(--accent);background:rgba(36,154,168,0.04);padding:16px;border-radius:12px}
 </style>
 </head>
 
@@ -170,19 +189,19 @@
       <span class="tag" id="tagline">// resin inventory</span>
     </div>
     <div class="topbar-actions">
-      <button class="lang-btn active" id="langEN" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="langES" onclick="setLang('es')">ES</button>
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+      <button class="lang-btn active" id="langEN" aria-label="English" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="langES" aria-label="Español" onclick="setLang('es')">ES</button>
+      <button class="theme-btn" aria-label="Toggle dark mode" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
     </div>
   </div>
   <div class="toolnav">
-    <a href="https://islaimpresa.github.io/" target="_blank" rel="noopener">← Isla Impresa</a>
+    <a href="https://islaimpresa.github.io/">← Isla Impresa</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/FDMCalculator/" target="_blank" rel="noopener">FDM Calculator</a>
+    <a href="https://islaimpresa.github.io/FDMCalculator/">FDM Calculator</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/SLACalculator/" target="_blank" rel="noopener">Resin Calculator</a>
+    <a href="https://islaimpresa.github.io/SLACalculator/">Resin Calculator</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/FilamentTracker/" target="_blank" rel="noopener">Filament Tracker</a>
+    <a href="https://islaimpresa.github.io/FilamentTracker/">Filament Tracker</a>
   </div>
   <p class="sub"><b id="slogan">Technical Mastery. Creative Design. Made in Puerto Rico.</b><br><span id="subtext">Track your resin bottles, remaining volume, value, and shelf-life.</span></p>
 
@@ -200,7 +219,7 @@
         <select id="f_type"><optgroup label="Standard"><option>Standard</option><option>Standard+</option><option>Rapid / High-Speed</option><option>Eco / Plant-based</option></optgroup><optgroup label="Engineering"><option>ABS-like</option><option>Tough / Nylon-like</option><option>Rigid</option><option>Heat-Resistant</option><option>Ceramic-filled</option></optgroup><optgroup label="Flexible"><option>Flexible</option><option>Elastic</option><option>TPU-like</option></optgroup><optgroup label="Specialty"><option>Water-washable</option><option>Castable (jewelry)</option><option>Dental / Biocompatible</option><option>Transparent / Clear</option><option>Draft / Fast</option><option>Pigment / Color base</option></optgroup><option>Other</option></select>
       </div>
       <div class="field"><label id="lblColor">Color</label><input id="f_color" type="text" placeholder="Grey, Clear..."></div>
-      <div class="field"><label id="lblColorHex">Swatch</label><input id="f_hex" type="color" value="#249aa8" style="height:40px;padding:4px"></div>
+      <div class="field"><label id="lblColorHex">Swatch</label><input id="f_hex" aria-label="Color swatch" type="color" value="#249aa8" style="height:24px;padding:2px"></div>
       <div class="field"><label id="lblTotal">Total volume (mL)</label><input id="f_total" type="number" step="1" min="0" value="1000" title="Bottle volume when new"></div>
       <div class="field"><label id="lblRemain">Remaining (mL)</label><input id="f_remain" type="number" step="1" min="0" value="1000" title="Approximate volume left in bottle"></div>
       <div class="presets" id="presets" style="grid-column:1/-1;margin-top:-2px">
@@ -223,7 +242,10 @@
   </div>
 
   <div class="controls">
-    <input class="search" id="search" type="text" placeholder="Search..." oninput="render()">
+    <div class="search-group">
+      <input class="search" id="search" type="text" placeholder="Search..." oninput="render()">
+      <button class="search-clear" onclick="clearSearch()" aria-label="Clear search" title="Clear search">✕</button>
+    </div>
     <select id="filterType" onchange="render()"><option value="">All types</option></select>
     <select id="sortBy" onchange="render()">
       <option value="newest">Newest</option>
@@ -468,6 +490,12 @@
     b.note=$("e_note_"+id).value.trim();
     editingId=null;buildTypeFilter();render();persist();
   }
+  function clearSearch(){
+    const s=document.getElementById("search");
+    if(s){s.value="";};
+    render();
+  }
+
 
   function visibleBottles(){
     const q=$("search").value.trim().toLowerCase();
@@ -498,6 +526,9 @@
   }
 
   function render(){
+    // Apply empty state highlight to form
+    const form=document.querySelector('.form');
+    if(form){form.classList.toggle('empty',bottles.length===0);}
     let totalRemain=0,totalValue=0,totalSpent=0;
     bottles.forEach(b=>{totalRemain+=b.remain;const c=b.total>0?b.cost/b.total:0;totalValue+=c*b.remain;totalSpent+=b.cost;});
     $("sumBottles").textContent=String(bottles.length);
@@ -562,7 +593,7 @@
           <div><label>${t("brand")}</label><input id="e_brand_${id}" type="text" value="${esc(b.brand)}"></div>
           <div><label>${t("type")}</label><select id="e_type_${id}">${TYPE_OPTS}</select></div>
           <div><label>${t("color")}</label><input id="e_color_${id}" type="text" value="${esc(b.color)}"></div>
-          <div><label>${t("colorHex")}</label><input id="e_hex_${id}" type="color" value="${esc(b.hex||'#249aa8')}" style="height:38px;padding:3px"></div>
+          <div><label>${t("colorHex")}</label><input id="e_hex_${id}" aria-label="Color swatch" type="color" value="${esc(b.hex||'#249aa8')}" style="height:38px;padding:3px"></div>
           <div><label>${t("total")}</label><input id="e_total_${id}" type="number" step="1" min="0" value="${b.total}"></div>
           <div><label>${t("remain")}</label><input id="e_remain_${id}" type="number" step="1" min="0" value="${b.remain}"></div>
           <div><label>${t("cost")}</label><input id="e_cost_${id}" type="number" step="0.01" min="0" value="${b.cost}"></div>
