@@ -202,6 +202,8 @@
     <a href="https://islaimpresa.github.io/SLACalculator/">Resin Calculator</a>
     <span class="sep">•</span>
     <a href="https://islaimpresa.github.io/FilamentTracker/">Filament Tracker</a>
+    <span class="sep">•</span>
+    <a href="https://islaimpresa.github.io/UnitConverter/">Unit Converter</a>
   </div>
   <p class="sub"><b id="slogan">Technical Mastery. Creative Design. Made in Puerto Rico.</b><br><span id="subtext">Track your resin bottles, remaining volume, value, and shelf-life.</span></p>
 
@@ -439,6 +441,7 @@
     r.setAttribute("data-theme",dark?"light":"dark");
     $("themeBtn").textContent=dark?t("themeDark"):t("themeLight");
     $("logo").src=dark?LOGO:LOGO_DARK;
+    try{localStorage.setItem("islaTheme",dark?"light":"dark");}catch(e){}
   }
 
   function addBottle(){
@@ -616,6 +619,7 @@
 
   function persist(){
     try{localStorage.setItem(STORE_KEY,JSON.stringify({bottles,lang,cur:cur.code}));}catch(e){}
+    try{localStorage.setItem("islaLang",lang);}catch(e){}
   }
   function load(){
     let data=null;
@@ -625,6 +629,7 @@
       if(data.cur){const f=CURRENCIES.find(x=>x.code===data.cur);if(f)cur=f;}
       if(data.lang==="es")lang="es";
     }
+    try{const shared=localStorage.getItem("islaLang");if(shared==="es"||shared==="en")lang=shared;}catch(e){}
   }
 
   function exportData(){
@@ -648,6 +653,10 @@
 
   (function(){
     load();
+    try{const sharedTheme=localStorage.getItem("islaTheme");if(sharedTheme==="light"||sharedTheme==="dark"){
+      document.documentElement.setAttribute("data-theme",sharedTheme);
+      $("logo").src=sharedTheme==="dark"?LOGO:LOGO_DARK;
+    }}catch(e){}
     setLang(lang);
     buildTypeFilter();
     render();
