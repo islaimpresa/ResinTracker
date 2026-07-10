@@ -28,7 +28,7 @@
   .wrap{max-width:860px;margin:0 auto}
   .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap}
   .brand{display:flex;align-items:center;gap:14px}
-  .brand img{height:62px;width:auto;display:block}
+  .brand img{height:32px;width:auto;display:block}
   .brand .tag{color:var(--muted);font-family:ui-monospace,Consolas,monospace;font-size:.78rem}
   .theme-btn{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
     border-radius:999px;padding:8px 16px;cursor:pointer;font-size:.85rem;transition:.15s}
@@ -40,7 +40,7 @@
     border-radius:8px;padding:8px 14px;cursor:pointer;font-size:.85rem;transition:.15s}
   .toolbar button:hover{border-color:var(--accent);color:var(--accent)}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:640px){.grid{grid-template-columns:1fr}body{padding:14px}.brand img{height:48px}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}body{padding:14px}.brand img{height:32px}}
   .field{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow)}
   .field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:6px;
     text-transform:uppercase;letter-spacing:.04em}
@@ -197,13 +197,13 @@
   <div class="toolnav">
     <a href="https://islaimpresa.github.io/">← Isla Impresa</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/FDMCalculator/">FDM Calculator</a>
+    <a href="https://islaimpresa.github.io/FDMCalculator/" id="navFdm">FDM Calculator</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/SLACalculator/">Resin Calculator</a>
+    <a href="https://islaimpresa.github.io/SLACalculator/" id="navResin">Resin Calculator</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/FilamentTracker/">Filament Tracker</a>
+    <a href="https://islaimpresa.github.io/FilamentTracker/" id="navTracker">Filament Tracker</a>
     <span class="sep">•</span>
-    <a href="https://islaimpresa.github.io/UnitConverter/">Unit Converter</a>
+    <a href="https://islaimpresa.github.io/UnitConverter/" id="navConverter">Unit Converter</a>
   </div>
   <p class="sub"><b id="slogan">Technical Mastery. Creative Design. Made in Puerto Rico.</b><br><span id="subtext">Track your resin bottles, remaining volume, value, and shelf-life.</span></p>
 
@@ -319,7 +319,8 @@
       noMatch:"No bottles match your search.",
       usePrompt:"mL used in this print?", refillPrompt:"New remaining mL (e.g. fresh 1000mL bottle):",
       confirmDel:"Delete this bottle?", needBrand:"Enter at least a brand or type.",
-      remaining:"remaining", of:"of", opened_s:"opened", expEx:"expired", expIn:"best within"
+      remaining:"remaining", of:"of", opened_s:"opened", expEx:"expired", expIn:"best within",
+      navFdm:"FDM Calculator", navResin:"Resin Calculator", navTracker:"Filament Tracker", navConverter:"Unit Converter"
     },
     es:{
       tagline:"// inventario de resina",
@@ -342,7 +343,8 @@
       noMatch:"Ninguna botella coincide con tu búsqueda.",
       usePrompt:"¿mL usados en esta impresión?", refillPrompt:"Nuevos mL restantes (ej. botella nueva de 1000mL):",
       confirmDel:"¿Eliminar esta botella?", needBrand:"Ingresa al menos una marca o tipo.",
-      remaining:"restante", of:"de", opened_s:"abierta", expEx:"vencida", expIn:"usar antes de"
+      remaining:"restante", of:"de", opened_s:"abierta", expEx:"vencida", expIn:"usar antes de",
+      navFdm:"Calculadora FDM", navResin:"Calculadora de Resina", navTracker:"Rastreador de Filamento", navConverter:"Conversor de Unidades"
     }
   };
 
@@ -411,6 +413,10 @@
     $("sumValueK").textContent=t("sumValue");
     $("sumSpentK").textContent=t("sumSpent");
     $("lblBrand").textContent=t("brand");
+    $("navFdm").textContent=t("navFdm");
+    $("navResin").textContent=t("navResin");
+    $("navTracker").textContent=t("navTracker");
+    $("navConverter").textContent=t("navConverter");
     $("lblType").textContent=t("type");
     $("lblColor").textContent=t("color");
     $("lblColorHex").textContent=t("colorHex");
