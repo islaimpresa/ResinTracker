@@ -6,35 +6,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Resin Bottle Inventory Tracker — Isla Impresa</title>
 <meta name="description" content="Free resin inventory tracker by Isla Impresa. Track remaining resin (mL), cost per mL, inventory value, low-stock alerts, and shelf-life for opened bottles. English/Spanish, 10 currencies. Made in Ponce, Puerto Rico.">
+<link rel="canonical" href="https://islaimpresa.github.io/ResinTracker/">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://islaimpresa.github.io/ResinTracker/">
+<meta property="og:image" content="https://islaimpresa.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://islaimpresa.github.io/og.png">
+<meta name="theme-color" content="#fbfaf7">
 <meta name="keywords" content="resin tracker, SLA resin inventory, MSLA resin, resin shelf life, cost per mL, Isla Impresa, Puerto Rico 3D printing">
 <meta property="og:title" content="Free Resin Bottle Inventory Tracker — Isla Impresa">
 <meta property="og:description" content="Track your resin bottles, remaining mL, cost per mL, value, and shelf-life. Free, bilingual.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
   :root[data-theme="light"]{
-    --bg:#f4f7f8; --panel:#ffffff; --panel-2:#eef4f5; --line:#d6e1e3;
-    --ink:#15252a; --muted:#5f7378; --accent:#249aa8; --accent-2:#1b7f8b;
-    --good:#1b7f8b; --field:#ffffff; --shadow:0 2px 14px rgba(20,60,70,.06);
+    --bg:#fbfaf7; --panel:#ffffff; --panel-2:#f3f1ec; --line:#e3e6e2;
+    --ink:#17282c; --muted:#5d6f73; --accent:#249aa8; --accent-2:#1b7f8b;
+    --good:#1b7f8b; --field:#ffffff; --brass:#b07d3c; --shadow:0 1px 2px rgba(20,40,45,.04),0 18px 40px -30px rgba(20,40,45,.25);
   }
   :root[data-theme="dark"]{
-    --bg:#0c1416; --panel:#13201f; --panel-2:#18292b; --line:#274247;
-    --ink:#e6f1f2; --muted:#86a3a8; --accent:#34b8c8; --accent-2:#5fd0dd;
-    --good:#34b8c8; --field:#0a1213; --shadow:0 2px 18px rgba(0,0,0,.35);
+    --bg:#0e1a1d; --panel:#16282d; --panel-2:#1b333a; --line:#223d44;
+    --ink:#eef4f5; --muted:#90a8ad; --accent:#34b8c8; --accent-2:#2b98a4;
+    --good:#34b8c8; --field:#0a1213; --brass:#d9a566; --shadow:0 1px 0 rgba(255,255,255,.02),0 18px 40px -28px rgba(0,0,0,.7);
   }
+  :root{--display:"Fraunces",Georgia,serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    font-family:var(--body);
     line-height:1.5;padding:24px;transition:background .25s,color .25s}
   .wrap{max-width:860px;margin:0 auto}
   .topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap}
   .brand{display:flex;align-items:center;gap:14px}
   .brand img{height:32px;width:auto;display:block}
-  .brand .tag{color:var(--muted);font-family:ui-monospace,Consolas,monospace;font-size:.78rem}
+  .brand .tag{color:var(--muted);font-family:var(--mono);font-size:.78rem}
   .theme-btn{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
     border-radius:999px;padding:8px 16px;cursor:pointer;font-size:.85rem;transition:.15s}
   .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
   .sub{color:var(--muted);margin:0 0 20px;font-size:.92rem}
-  .sub b{color:var(--accent);font-weight:600}
+  .sub b{color:var(--accent);font-weight:600;font-family:var(--display);font-size:1.02rem;letter-spacing:.1px}
   .toolbar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
   .toolbar button{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);
     border-radius:8px;padding:8px 14px;cursor:pointer;font-size:.85rem;transition:.15s}
@@ -45,13 +58,13 @@
   .field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:6px;
     text-transform:uppercase;letter-spacing:.04em}
   .field input,.field select{width:100%;background:var(--field);border:1px solid var(--line);
-    color:var(--ink);border-radius:7px;padding:9px 10px;font-size:1rem;font-family:ui-monospace,Consolas,monospace}
+    color:var(--ink);border-radius:7px;padding:9px 10px;font-size:1rem;font-family:var(--mono)}
   .field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
   .input-prefix{display:flex;align-items:center;background:var(--field);border:1px solid var(--line);
     border-radius:7px;overflow:hidden}
   .input-prefix:focus-within{border-color:var(--accent)}
   .input-prefix .sym{padding:9px 4px 9px 10px;color:var(--muted);font-size:1rem;
-    font-family:ui-monospace,Consolas,monospace;white-space:nowrap}
+    font-family:var(--mono);white-space:nowrap}
   .input-prefix input{border:none;border-radius:0;background:transparent;padding-left:4px}
   .input-prefix input:focus{border:none}
   .time-row{display:flex;gap:8px}
@@ -67,15 +80,26 @@
   .total{display:flex;justify-content:space-between;align-items:baseline;
     border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px}
   .total span{color:var(--muted);text-transform:uppercase;font-size:.8rem;letter-spacing:.05em}
-  .total b{font-size:2rem;color:var(--accent);font-family:ui-monospace,Consolas,monospace}
+  .total b{font-size:2rem;color:var(--accent);font-family:var(--mono)}
   .lines{display:grid;gap:7px;font-size:.9rem}
   .lines .row{display:flex;justify-content:space-between;color:var(--muted)}
-  .lines .row b{color:var(--ink);font-family:ui-monospace,Consolas,monospace;font-weight:500}
+  .lines .row b{color:var(--ink);font-family:var(--mono);font-weight:500}
   .lines .row.sub{padding-top:8px;border-top:1px dashed var(--line);margin-top:5px}
   .lines .row.sub b{color:var(--good)}
   .pdfbtn{margin-top:16px;width:100%;background:var(--panel-2);color:var(--ink);
     border:1px solid var(--line);border-radius:9px;padding:11px;cursor:pointer;font-size:.92rem;transition:.15s}
   .pdfbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .signup{border-top:1px solid var(--line);max-width:520px;margin:26px auto 0;padding:24px 0 6px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+  .signup h3{font-family:var(--display);font-weight:600;font-size:1.2rem;color:var(--ink);margin:0}
+  .signup .s-sub{color:var(--muted);font-size:.9rem;margin:0;max-width:400px}
+  .signup form{display:flex;gap:8px;width:100%;max-width:420px;margin-top:4px}
+  .signup input[type=email]{flex:1;font-family:var(--body);font-size:.95rem;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);transition:border-color .2s}
+  .signup input[type=email]:focus{outline:none;border-color:var(--accent)}
+  .signup .s-btn{font-family:var(--body);font-weight:600;font-size:.95rem;padding:11px 18px;border:none;border-radius:10px;background:var(--accent);color:#fff;cursor:pointer;white-space:nowrap;transition:.15s}
+  .signup .s-btn:hover{background:var(--accent-2)}
+  .signup .s-micro{color:var(--muted);font-family:var(--mono);font-size:.72rem;margin:0}
+  .signup .s-thanks{color:var(--accent);font-weight:600;font-size:.92rem;margin:0}
+  @media(max-width:520px){.signup form{flex-direction:column}}
   footer{margin-top:28px;text-align:center;color:var(--muted);font-size:.8rem}
   .social{display:flex;gap:14px;justify-content:center;margin-bottom:10px}
   .social a{color:var(--accent);text-decoration:none;font-weight:600;font-size:.9rem;
@@ -106,7 +130,7 @@
     border-radius:10px;padding:12px 14px;box-shadow:var(--shadow)}
   .stat .k{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
   .stat .v{font-size:1.3rem;font-weight:700;color:var(--ink);margin-top:4px;
-    font-family:ui-monospace,Consolas,monospace}
+    font-family:var(--mono)}
   .addbar{background:var(--panel);border:1px solid var(--line);border-radius:12px;
     padding:14px;box-shadow:var(--shadow);margin-bottom:18px}
   .addgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -142,7 +166,7 @@
   .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
   .bar > i.lowfill{background:linear-gradient(90deg,#e07a5f,#c0392b)}
   .bottle-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:8px}
-  .bottle-nums{font-size:.85rem;color:var(--muted);font-family:ui-monospace,Consolas,monospace}
+  .bottle-nums{font-size:.85rem;color:var(--muted);font-family:var(--mono)}
   .bottle-note{font-size:.8rem;color:var(--muted);margin-top:8px;font-style:italic;
     border-left:2px solid var(--line);padding-left:8px}
   .bottle-actions{display:flex;gap:6px;flex-wrap:wrap}
@@ -272,6 +296,19 @@
   <div class="cta" id="cta">Need resin printed into something? → <a href="https://www.instagram.com/islaimpresa/" target="_blank" rel="noopener">Isla Impresa</a></div>
 
   <footer>
+    <div class="signup">
+      <h3 id="signupTitle">Get the next tool first.</h3>
+      <p class="s-sub" id="signupSub">New free tools and real upgrades — never small fixes.</p>
+      <form id="signupForm" action="https://assets.mailerlite.com/jsonp/2505151/forms/192806071283222430/subscribe" method="post" target="ml-sink" onsubmit="signupThanks()">
+        <input type="email" id="signupEmail" name="fields[email]" required placeholder="your@email.com" aria-label="Email">
+        <input type="hidden" name="ml-submit" value="1">
+        <input type="hidden" name="anticsrf" value="true">
+        <button type="submit" class="s-btn" id="signupBtn">Notify me</button>
+      </form>
+      <p class="s-micro" id="signupMicro">No spam. Unsubscribe anytime.</p>
+      <p class="s-thanks" id="signupThanksMsg" hidden>You're in — we'll only reach out when it's worth it.</p>
+    </div>
+    <iframe name="ml-sink" style="display:none" aria-hidden="true"></iframe>
     <div class="social">
       <a href="https://www.instagram.com/islaimpresa/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.facebook.com/Islaimpresa/" target="_blank" rel="noopener">Facebook</a>
@@ -300,14 +337,14 @@
   const T={
     en:{
       tagline:"// resin inventory",
-      slogan:"Technical Mastery. Creative Design. Made in Puerto Rico.",
+      slogan:"Technical Mastery. Creative Design. Made in Puerto Rico.", signupTitle:"Get the next tool first.", signupSub:"New free tools and real upgrades — never small fixes.", signupBtn:"Notify me", signupMicro:"No spam. Unsubscribe anytime.", signupThanks:"You're in — we'll only reach out when it's worth it.", signupPh:"your@email.com",
       subtext:"Track your resin bottles, remaining volume, value, and shelf-life.",
       sumBottles:"Bottles", sumVol:"Resin remaining", sumValue:"Current value", sumSpent:"Total spent",
       brand:"Brand", type:"Resin type", color:"Color", colorHex:"Swatch", total:"Total volume (mL)",
       remain:"Remaining (mL)", cost:"Bottle cost", currency:"Currency", note:"Note (optional)",
       opened:"Opened date", shelf:"Best used within (months)", quickFill:"Quick fill:",
       add:"+ Add bottle", export:"⬇️ Export backup", import:"⬆️ Import backup",
-      search:"Search...", allTypes:"All types",
+      search:"Search...", phBrand:"Anycubic, Siraya...", phColor:"Grey, Clear...", phNote:"Shake well, mixed brands...", allTypes:"All types",
       sNewest:"Newest", sExpiring:"Expiring first", sLow:"Low stock first", sRemain:"Most remaining",
       sValue:"Highest value", sType:"Type A–Z", sBrand:"Brand A–Z", lowOnly:"Low only",
       cta:'Need resin printed into something? → ',
@@ -324,14 +361,14 @@
     },
     es:{
       tagline:"// inventario de resina",
-      slogan:"Maestría Técnica. Diseño Creativo. Hecho en Puerto Rico.",
+      slogan:"Maestría Técnica. Diseño Creativo. Hecho en Puerto Rico.", signupTitle:"Recibe la próxima herramienta primero.", signupSub:"Herramientas gratis y mejoras reales — nunca arreglos pequeños.", signupBtn:"Avísame", signupMicro:"Sin spam. Cancela cuando quieras.", signupThanks:"Listo — solo te escribiremos cuando valga la pena.", signupPh:"tu@email.com",
       subtext:"Controla tus botellas de resina, volumen restante, valor y vida útil.",
       sumBottles:"Botellas", sumVol:"Resina restante", sumValue:"Valor actual", sumSpent:"Total gastado",
       brand:"Marca", type:"Tipo de resina", color:"Color", colorHex:"Muestra", total:"Volumen total (mL)",
       remain:"Restante (mL)", cost:"Costo de botella", currency:"Moneda", note:"Nota (opcional)",
       opened:"Fecha de apertura", shelf:"Usar dentro de (meses)", quickFill:"Llenado rápido:",
       add:"+ Agregar botella", export:"⬇️ Exportar respaldo", import:"⬆️ Importar respaldo",
-      search:"Buscar...", allTypes:"Todos los tipos",
+      search:"Buscar...", phBrand:"Anycubic, Siraya...", phColor:"Gris, Transparente...", phNote:"Agitar bien, marcas mezcladas...", allTypes:"Todos los tipos",
       sNewest:"Más nuevos", sExpiring:"Por vencer primero", sLow:"Bajos primero", sRemain:"Más restante",
       sValue:"Mayor valor", sType:"Tipo A–Z", sBrand:"Marca A–Z", lowOnly:"Solo bajos",
       cta:'¿Necesitas resina convertida en algo? → ',
@@ -404,9 +441,16 @@
     $("langES").classList.toggle("active",lang==="es");
     applyLabels();buildCurrencyOptions();buildTypeFilter();render();persist();
   }
+  function signupThanks(){var f=document.getElementById("signupForm");f.style.display="none";var m=document.querySelector(".signup .s-micro");if(m)m.style.display="none";document.getElementById("signupThanksMsg").hidden=false;}
   function applyLabels(){
     $("tagline").textContent=t("tagline");
     $("slogan").textContent=t("slogan");
+    $("signupTitle").textContent=t("signupTitle");
+    $("signupSub").textContent=t("signupSub");
+    $("signupBtn").textContent=t("signupBtn");
+    $("signupMicro").textContent=t("signupMicro");
+    $("signupThanksMsg").textContent=t("signupThanks");
+    $("signupEmail").placeholder=t("signupPh");
     $("subtext").textContent=t("subtext");
     $("sumBottlesK").textContent=t("sumBottles");
     $("sumVolK").textContent=t("sumVol");
@@ -432,6 +476,9 @@
     $("btnExport").textContent=t("export");
     $("btnImport").textContent=t("import");
     $("search").placeholder=t("search");
+    $("f_brand").placeholder=t("phBrand");
+    $("f_color").placeholder=t("phColor");
+    $("f_note").placeholder=t("phNote");
     $("lowLabel").textContent=t("lowOnly");
     const so=$("sortBy").options;
     so[0].textContent=t("sNewest");so[1].textContent=t("sExpiring");so[2].textContent=t("sLow");
@@ -445,6 +492,7 @@
   function toggleTheme(){
     const r=document.documentElement;const dark=r.getAttribute("data-theme")==="dark";
     r.setAttribute("data-theme",dark?"light":"dark");
+    var _tc=document.querySelector('meta[name=theme-color]');if(_tc)_tc.setAttribute("content",dark?"#fbfaf7":"#0e1a1d");
     $("themeBtn").textContent=dark?t("themeDark"):t("themeLight");
     $("logo").src=dark?LOGO:LOGO_DARK;
     try{localStorage.setItem("islaTheme",dark?"light":"dark");}catch(e){}
@@ -661,6 +709,7 @@
     load();
     try{const sharedTheme=localStorage.getItem("islaTheme");if(sharedTheme==="light"||sharedTheme==="dark"){
       document.documentElement.setAttribute("data-theme",sharedTheme);
+      var _tc2=document.querySelector('meta[name=theme-color]');if(_tc2)_tc2.setAttribute("content",sharedTheme==="dark"?"#0e1a1d":"#fbfaf7");
       $("logo").src=sharedTheme==="dark"?LOGO:LOGO_DARK;
     }}catch(e){}
     setLang(lang);
