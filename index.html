@@ -203,6 +203,7 @@
   .search-clear:hover{color:var(--accent)}
   .form.empty{border:2px dashed var(--accent);background:rgba(36,154,168,0.04);padding:16px;border-radius:12px}
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Resin Bottle Tracker", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser", "url": "https://islaimpresa.github.io/ResinTracker/", "description": "Free resin inventory tracker: track resin by mL, cost per mL, and shelf-life alerts.", "inLanguage": ["en", "es"], "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "Isla Impresa", "url": "https://islaimpresa.github.io/", "sameAs": ["https://www.instagram.com/islaimpresa/", "https://www.facebook.com/Islaimpresa/"], "@context": "https://schema.org"}}</script>
 </head>
 
 <body>
@@ -228,6 +229,10 @@
     <a href="https://islaimpresa.github.io/FilamentTracker/" id="navTracker">Filament Tracker</a>
     <span class="sep">•</span>
     <a href="https://islaimpresa.github.io/UnitConverter/" id="navConverter">Unit Converter</a>
+    <span class="sep">•</span>
+    <a href="https://islaimpresa.github.io/Troubleshooter/" id="navTrouble">Troubleshooter</a>
+    <span class="sep">•</span>
+    <a href="https://islaimpresa.github.io/MaterialSelector/" id="navMaterial">Material Selector</a>
   </div>
   <p class="sub"><b id="slogan">Technical Mastery. Creative Design. Made in Puerto Rico.</b><br><span id="subtext">Track your resin bottles, remaining volume, value, and shelf-life.</span></p>
 
@@ -358,7 +363,7 @@
       usePrompt:"mL used in this print?", refillPrompt:"New remaining mL (e.g. fresh 1000mL bottle):",
       confirmDel:"Delete this bottle?", needBrand:"Enter at least a brand or type.",
       remaining:"remaining", of:"of", opened_s:"opened", expEx:"expired", expIn:"best within",
-      navFdm:"FDM Calculator", navResin:"Resin Calculator", navTracker:"Filament Tracker", navConverter:"Unit Converter"
+      navFdm:"FDM Calculator", navResin:"Resin Calculator", navTracker:"Filament Tracker", navConverter:"Unit Converter", navTrouble:"Troubleshooter", navMaterial:"Material Selector"
     },
     es:{
       tagline:"// inventario de resina",
@@ -382,7 +387,7 @@
       usePrompt:"¿mL usados en esta impresión?", refillPrompt:"Nuevos mL restantes (ej. botella nueva de 1000mL):",
       confirmDel:"¿Eliminar esta botella?", needBrand:"Ingresa al menos una marca o tipo.",
       remaining:"restante", of:"de", opened_s:"abierta", expEx:"vencida", expIn:"usar antes de",
-      navFdm:"Calculadora FDM", navResin:"Calculadora de Resina", navTracker:"Rastreador de Filamento", navConverter:"Conversor de Unidades"
+      navFdm:"Calculadora FDM", navResin:"Calculadora de Resina", navTracker:"Rastreador de Filamento", navConverter:"Conversor de Unidades", navTrouble:"Diagnóstico", navMaterial:"Selector de Material"
     }
   };
 
@@ -462,6 +467,8 @@
     $("navResin").textContent=t("navResin");
     $("navTracker").textContent=t("navTracker");
     $("navConverter").textContent=t("navConverter");
+    $("navTrouble").textContent=t("navTrouble");
+    $("navMaterial").textContent=t("navMaterial");
     $("lblType").textContent=t("type");
     $("lblColor").textContent=t("color");
     $("lblColorHex").textContent=t("colorHex");
